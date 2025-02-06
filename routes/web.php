@@ -8,10 +8,44 @@ use App\Http\Controllers\PeliculasController;
 use App\Http\Controllers\ElencoController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Http\Request;
+use App\Http\Controllers\LoginController;
+
+
+
 
 Route::get('/', function () {
     return view('home');
 });
+
+
+
+//RUTAS AUTENTICAR
+
+
+
+Route::get('/login', function () {
+    return view('login'); // Mostramos la vista de login
+});
+
+Route::post('/login', LoginController::class)->middleware('guest:sanctum'); // Ruta POST para procesar el login
+
+
+
+
+
+Route::post('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+    return redirect('/login');
+})->middleware('auth:sanctum');
+
+
+
+
+
+
+
 
 
 //Ruta Front End
@@ -53,5 +87,4 @@ Route::get("formulario-elenco", [ElencoController::class, "formulario"])->name("
 
 Route::post("formulario-elenco",[ElencoController::class,"agregarElenco"])->name("formulario-elenco.agregar");
 
-// web.php
 Route::get('elenco/{id}/peliculas', [ElencoController::class, 'listaElencoPeliculas'])->name('elenco.lista-elenco-peliculas');
