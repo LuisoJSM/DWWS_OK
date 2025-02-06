@@ -35,13 +35,13 @@ class ElencoController extends Controller
             'fecha_nacimiento' => 'required|date',
             'pelicula' => 'required|exists:peliculas,id',
         ]);
-    
+
         // Buscar si ya existe el actor/actriz en la base de datos
         $elenco = Elenco::where('nombre', $validated['nombre'])
             ->where('apellido', $validated['apellido'])
             ->where('fecha_nacimiento', $validated['fecha_nacimiento'])
             ->first();
-    
+
         if (!$elenco) {
             // Si no existe, creamos un nuevo registro en la tabla elenco
             $elenco = Elenco::create([
@@ -50,7 +50,7 @@ class ElencoController extends Controller
                 'fecha_nacimiento' => $validated['fecha_nacimiento'],
             ]);
         }
-    
+
         // Registrar la relación en la tabla intermedia elenco_pelicula
         DB::table('elenco_pelicula')->updateOrInsert(
             [
@@ -58,20 +58,36 @@ class ElencoController extends Controller
                 'id_pelicula' => $validated['pelicula'],
             ]
         );
-    
+
         // Redirigir con un mensaje de éxito
         return redirect()->route('formulario-elenco.formulario')->with('success', 'El actor/actriz y su relación con la película se han guardado correctamente.');
     }
-    
+
 
 
     public function formulario(){
 
         $peliculas = Pelicula::all();
 
-        
+
         return view("elenco.formulario-elenco", compact("peliculas"));
     }
+
+
+public function listaElencoPeliculas($id)
+{
+    // Buscar al actor/actriz por su ID
+    $actor = Elenco::findOrFail($id);
+
+    // Obtener las películas asociadas al actor/actriz con paginación (5 por página)
+    $peliculas = $actor->peliculas()->paginate(5);
+
+    // Retornar la vista 'lista-elenco-peliculas' con el actor y sus películas
+    return view('elenco.lista-elenco-peliculas', [
+        'actor' => $actor,
+        'peliculas' => $peliculas
+    ]);
+}
 
 
 

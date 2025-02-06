@@ -52,3 +52,6 @@ Route::get('lista-elenco', [ElencoController::class,"listaElenco"])->name("lista
 Route::get("formulario-elenco", [ElencoController::class, "formulario"])->name("formulario-elenco.formulario");
 
 Route::post("formulario-elenco",[ElencoController::class,"agregarElenco"])->name("formulario-elenco.agregar");
+
+// web.php
+Route::get('elenco/{id}/peliculas', [ElencoController::class, 'listaElencoPeliculas'])->name('elenco.lista-elenco-peliculas');

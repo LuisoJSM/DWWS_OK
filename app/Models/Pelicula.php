@@ -29,4 +29,12 @@ class Pelicula extends Model
     }
 
 
+// Pelicula.php
+public function elenco()
+{
+    return $this->belongsToMany(Elenco::class, 'elenco_pelicula', 'id_pelicula', 'id_elenco');
+}
+
+
+
 }

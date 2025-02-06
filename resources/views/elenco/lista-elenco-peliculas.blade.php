@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Elenco</title>
+    <title>Películas de {{ $actor->nombre }} {{ $actor->apellido }}</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,10 +11,17 @@
             margin: 0;
             padding: 0;
         }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
         table {
             width: 80%;
             margin: 50px auto;
             border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         th, td {
             padding: 12px;
@@ -26,7 +33,10 @@
             color: white;
         }
         td {
-            background-color: #fff;
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
         }
         a {
             color: #007bff;
@@ -35,13 +45,10 @@
         a:hover {
             text-decoration: underline;
         }
-        h1 {
+        .pagination {
             text-align: center;
-            margin: 30px;
-            color: #333;
+            margin-top: 20px;
         }
-
-
         button {
             display: block;
             margin: 30px auto;
@@ -55,43 +62,46 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         button a {
             color: white;
             text-decoration: none;
         }
-
         button:hover {
             background-color: #d88e1a;
         }
-
     </style>
 </head>
 <body>
 
-    <h1>Lista de Elenco</h1>
+    <h1>Películas de {{ $actor->nombre }} {{ $actor->apellido }}</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Acción</th>
+                <th>Título</th>
+                <th>Año de Estreno</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($elenco as $elencos)
+            @forelse ($peliculas as $pelicula)
                 <tr>
-                    <td>{{ $elencos->nombre }} {{ $elencos->apellido }}</td>
-                    <td>
-
-                        <a href="{{ route('elenco.lista-elenco-peliculas', $elencos->id) }}">Ver Películas</a>
-                    </td>
+                    <td>{{ $pelicula->titulo }}</td>
+                    <td>{{ $pelicula->anio_estreno }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="2">Este actor no ha participado en ninguna película.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
-    <button><a href="{{ route('admin') }}">Volver a panel de Admin</a></button>
 
+    <!-- Paginar las películas -->
+    <div class="pagination">
+        {{ $peliculas->links() }}
+    </div>
+
+    <button><a href="{{ route('lista-elenco.lista') }}">Volver a la lista de Elenco</a></button>
 
 </body>
 </html>
