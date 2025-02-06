@@ -18,7 +18,7 @@
         .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -54,6 +54,14 @@
         .btn-back:hover {
             background-color: #ddd;
         }
+        .trailer {
+            width: 200px;
+        }
+        .trailer iframe {
+            width: 100%;
+            height: 100px;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +76,7 @@
                 <th>Título</th>
                 <th>Director</th>
                 <th>Año de Estreno</th>
+                <th>Tráiler</th> <!-- Nueva columna para el tráiler -->
             </tr>
         </thead>
         <tbody>
@@ -83,10 +92,26 @@
                     @endif
                 </td>
                 <td>{{ $pelicula->anio_estreno }}</td>
+
+                <!-- Conversión de URL de YouTube a formato embebido -->
+                @php
+                    $embedUrl = $pelicula->trailer_url ? str_replace("watch?v=", "embed/", strtok($pelicula->trailer_url, "&")) : null;
+                @endphp
+
+                <td class="trailer">
+                    @if ($embedUrl)
+                        <iframe
+                            src="{{ $embedUrl }}"
+                            allowfullscreen>
+                        </iframe>
+                    @else
+                        No disponible
+                    @endif
+                </td>
             </tr>
             @empty
             <tr>
-                <td colspan="4">No hay películas disponibles.</td>
+                <td colspan="5">No hay películas disponibles.</td>
             </tr>
             @endforelse
         </tbody>

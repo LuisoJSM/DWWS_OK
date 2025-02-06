@@ -10,12 +10,11 @@ class Pelicula extends Model
     use HasFactory;
 
     // Atributos que pueden ser asignados masivamente
-    protected $fillable = [
-        'titulo',
-        'director_id', // Ahora usamos director_id en lugar de director
-        'anio_estreno',
-        'id_isrc',
-    ];
+
+
+    protected $fillable = ['titulo', 'anio_estreno', 'director_id', 'id_isrc', 'trailer_url'];
+
+
 
     // Relación con el modelo Director
     public function director()

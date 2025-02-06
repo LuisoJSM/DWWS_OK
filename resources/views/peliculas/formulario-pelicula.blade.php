@@ -150,6 +150,15 @@
                     <option value="serie">Serie</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="trailer_url">URL del Tráiler de YouTube</label>
+                <input type="text" name="trailer_url" id="trailer_url" class="form-control" placeholder="Añade una URL">
+            </div>
+
+
+
+
         </div>
 
         <div class="card-footer" style="text-align: center;">
