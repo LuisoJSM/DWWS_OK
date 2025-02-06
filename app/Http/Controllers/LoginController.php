@@ -27,4 +27,39 @@ class LoginController extends Controller
         // Si la autenticación falla, redirigir al login con un mensaje de error
         return redirect('/login')->withErrors(['error' => 'Credenciales incorrectas']);
     }
+
+
+
+
+
+        // Mostrar el formulario de login
+        public function showLoginForm()
+        {
+            return view('login');  // Asegúrate de tener la vista 'auth.login'
+        }
+
+        // Procesar el login
+        public function login(Request $request)
+        {
+            // Validación de los datos de login
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ]);
+
+            // Intentar autenticar al usuario
+            if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                // Redirigir al usuario a una página protegida, como el panel de administración
+                return redirect()->route('admin');
+            }
+
+            // Si el login falla, redirigir con mensaje de error
+            return redirect()->route('login')->withErrors(['error' => 'Credenciales incorrectas']);
+        }
+
+
+
+
+
 }
+

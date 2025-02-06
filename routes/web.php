@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LoginController;
 
+use App\Http\Controllers\RegisterController;
 
 
 
@@ -25,11 +26,11 @@ Route::get('/', function () {
 
 
 
-Route::get('/login', function () {
-    return view('login'); // Mostramos la vista de login
-});
+// Mostrar el formulario de login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::post('/login', LoginController::class)->middleware('guest:sanctum'); // Ruta POST para procesar el login
+// Procesar el login
+Route::post('/login', [LoginController::class, 'login']);
 
 
 
@@ -42,9 +43,14 @@ Route::post('/logout', function (Request $request) {
 
 
 
+//RUTA REGISTRO
 
 
+// Mostrar formulario de registro
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
+// Procesar el formulario de registro
+Route::post('/register', [RegisterController::class, 'register']);
 
 
 
@@ -56,7 +62,22 @@ Route::get('/home', action: [FrontEndController::class, "home"])->name('home');
 
 
 //Rutas admin VISTA GENERAL
-Route::get('/admin', action: [AdminController::class, "admin"])->name('admin');
+// Route::get('/admin', action: [AdminController::class, "admin"])->name('admin');
+
+
+Route::get('/admin', [AdminController::class, 'admin'])
+    ->middleware('auth:sanctum')
+    ->name('admin');
+
+
+
+
+
+
+
+
+
+
 
 
 

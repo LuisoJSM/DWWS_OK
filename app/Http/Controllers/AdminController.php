@@ -8,8 +8,9 @@ class AdminController extends Controller
 {
 
 
-public function admin(){
+public function admin(Request $request){
     return view ('admin.admin');
+
 }
 
 
