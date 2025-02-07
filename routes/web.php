@@ -24,25 +24,21 @@ Route::get('/', function () {
 
 //RUTAS AUTENTICAR
 
-
-
 // Mostrar el formulario de login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 // Procesar el login
 Route::post('/login', [LoginController::class, 'login']);
 
-
+//RUTAS LOGOUT
 // Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
-
-
 
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
 
 
-//RUTA REGISTRO
 
+//RUTA REGISTRO
 
 // Mostrar formulario de registro
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -72,6 +68,7 @@ Route::get('/admin', [AdminController::class, 'admin'])
 
 
 
+//RUTAS PROTEGIDAS POR AUTH
 // Rutas administración de PELÍCULAS
 Route::middleware('auth:sanctum')->group(function () {
     Route::get("formulario-peliculas", [PeliculasController::class, "formulario"])->name("formulario-pelicula.formulario");

@@ -79,6 +79,8 @@
         }
     </style>
 </head>
+@include('layouts.navadmin')
+
 <body>
 
     <h1>Lista de Películas</h1>

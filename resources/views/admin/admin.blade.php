@@ -49,6 +49,7 @@
         }
     </style>
 </head>
+@include('layouts.navadmin')
 <body>
 
     <h1>Bienvenido a la Administración de Películas</h1>
@@ -73,12 +74,6 @@
     </div>
 
 
-    @if (Auth::check())
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Cerrar Sesión</button>
-    </form>
-@endif
 
 </body>
 </html>

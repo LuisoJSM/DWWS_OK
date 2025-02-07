@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
         }
-
         nav {
             background-color: #333;
             display: flex;
@@ -18,7 +17,6 @@
             padding: 10px 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         nav a {
             color: white;
             text-decoration: none;
@@ -29,12 +27,10 @@
             border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
-
         nav a:hover {
             background-color: #f5a623;
             transform: translateY(-3px);
         }
-
         nav a:active {
             background-color: #d88c1f;
             transform: translateY(0);
@@ -79,28 +75,13 @@
 <body>
     <nav>
         <a href="{{ route('home') }}">Inicio</a>
-        <a href="{{ route('catalogo') }}">Catálogo</a>
-
-        <!-- Mostrar el enlace al panel de administración solo si el usuario está logueado -->
-        @if (Auth::check())
-            <a href="{{ route('admin') }}">Panel de administración</a>
-        @endif
-
-        <!-- Enlaces para Login y Registro -->
-        @if (!Auth::check())
-            <a href="{{ route('login') }}">Login</a>
-            <a href="{{ route('register') }}">Registro</a>
-        @endif
-
-        <!-- Mostrar el formulario de cerrar sesión solo si el usuario está logueado -->
-        @if (Auth::check())
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                </button>
-            </form>
-        @endif
+        <a href="{{ route('admin') }}">Panel administración</a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </form>
     </nav>
 </body>
 </html>

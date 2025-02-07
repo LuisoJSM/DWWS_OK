@@ -60,6 +60,8 @@
         }
     </style>
 </head>
+@include('layouts.navadmin')
+
 <body>
 
     <h1>Formulario de Elenco</h1>

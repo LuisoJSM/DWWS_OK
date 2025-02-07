@@ -71,6 +71,8 @@
         }
     </style>
 </head>
+@include('layouts.navadmin')
+
 <body>
 
     <h1>Películas de {{ $actor->nombre }} {{ $actor->apellido }}</h1>
