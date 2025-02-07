@@ -54,11 +54,7 @@ Route::get('/catalogo', action: [FrontEndController::class, "catalogo"])->name('
 Route::get('/home', action: [FrontEndController::class, "home"])->name('home');
 
 
-
-//Rutas admin VISTA GENERAL
-// Route::get('/admin', action: [AdminController::class, "admin"])->name('admin');
-
-
+//Ruta de administrador
 Route::get('/admin', [AdminController::class, 'admin'])
     ->middleware('auth:sanctum')
     ->name('admin');
