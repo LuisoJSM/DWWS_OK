@@ -61,5 +61,28 @@ class LoginController extends Controller
 
 
 
+        public function logout(Request $request)
+        {
+            $user = auth()->user();
+
+            if ($user) {
+                // Revocar TODOS los tokens del usuario si existen (evita el error de TransientToken)
+                $user->tokens()->delete();
+            }
+
+            // Cerrar sesión usando el guard `web`
+            auth('web')->logout();
+
+            // Invalidar la sesión y regenerar el token CSRF
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('success', 'Has cerrado sesión correctamente.');
+        }
+
+
+
+
+
 }
 

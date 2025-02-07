@@ -33,14 +33,12 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
 
+// Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 
 
-Route::post('/logout', function (Request $request) {
-    $request->user()->currentAccessToken()->delete();
-    return redirect('/login');
-})->middleware('auth:sanctum');
-
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
 
 
 //RUTA REGISTRO
@@ -74,38 +72,19 @@ Route::get('/admin', [AdminController::class, 'admin'])
 
 
 
+// Rutas administración de PELÍCULAS
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get("formulario-peliculas", [PeliculasController::class, "formulario"])->name("formulario-pelicula.formulario");
+    Route::get('lista-pelicula', [PeliculasController::class, 'listaPelicula'])->name('lista-pelicula.lista');
+    Route::post("formulario-peliculas", [PeliculasController::class, "agregarPelicula"])->name("formulario-pelicula.agregar");
 
+    // Rutas de DIRECTORES
+    Route::get("lista-director", [DirectorController::class, 'listaDirector'])->name('lista-director.lista');
+    Route::get('lista-director-pelicula/{id}', [DirectorController::class, 'listaDirectorPelicula'])->name('lista-director-pelicula.lista');
 
-
-
-
-
-
-
-//Rutas administración de PELICULAS
-Route::get("formulario-peliculas", [PeliculasController::class, "formulario"])->name("formulario-pelicula.formulario");
-
-Route::get('lista-pelicula', [PeliculasController::class, 'listaPelicula'])->name('lista-pelicula.lista');
-
-Route::post("formulario-peliculas", [PeliculasController::class,"agregarPelicula"])->name("formulario-pelicula.agregar");
-
-
-
-
-
-
-//Ruta para ver directores
-Route::get("lista-director", [DirectorController::class, 'listaDirector'])->name('lista-director.lista');
-//Ruta paa ver películas por el ID del director
-Route::get('lista-director-pelicula/{id}', [DirectorController::class, 'listaDirectorPelicula'])->name('lista-director-pelicula.lista');
-
-
-
-//Ruta para ver Elenco
-Route::get('lista-elenco', [ElencoController::class,"listaElenco"])->name("lista-elenco.lista");
-
-Route::get("formulario-elenco", [ElencoController::class, "formulario"])->name("formulario-elenco.formulario");
-
-Route::post("formulario-elenco",[ElencoController::class,"agregarElenco"])->name("formulario-elenco.agregar");
-
-Route::get('elenco/{id}/peliculas', [ElencoController::class, 'listaElencoPeliculas'])->name('elenco.lista-elenco-peliculas');
+    // Rutas de ELENCO
+    Route::get('lista-elenco', [ElencoController::class, "listaElenco"])->name("lista-elenco.lista");
+    Route::get("formulario-elenco", [ElencoController::class, "formulario"])->name("formulario-elenco.formulario");
+    Route::post("formulario-elenco", [ElencoController::class, "agregarElenco"])->name("formulario-elenco.agregar");
+    Route::get('elenco/{id}/peliculas', [ElencoController::class, 'listaElencoPeliculas'])->name('elenco.lista-elenco-peliculas');
+});

@@ -42,8 +42,8 @@
     <nav>
         <a href="{{ route('home') }}">Inicio</a>
         <a href="{{ route('catalogo') }}">Catálogo</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('register') }}">Registro</a>
     </nav>
 
 </body>
