@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LocaleController;
 
 use App\Http\Controllers\RegisterController;
 
@@ -81,3 +82,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("formulario-elenco", [ElencoController::class, "agregarElenco"])->name("formulario-elenco.agregar");
     Route::get('elenco/{id}/peliculas', [ElencoController::class, 'listaElencoPeliculas'])->name('elenco.lista-elenco-peliculas');
 });
+
+
+Route::get('locale/{lang}', [LocaleController::class,'setLocale']);

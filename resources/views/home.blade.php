@@ -82,9 +82,9 @@
     @include('layouts.nav')
 
     <div class="container">
-        <h1>🎬 DWWStreaming 🍿</h1>
-        <p>Para ver películas con trailer, ve al catálogo</p>
-        <a href="{{ route('catalogo') }}" class="btn">🎥 Explorar Películas</a>
+        <h1>🎬 DWSStreaming 🍿</h1>
+        <p>@lang('messages.inicial')</p>
+        <a href="{{ route('catalogo') }}" class="btn">🎥 @lang('messages.explorar')</a>
     </div>
 
 </body>
